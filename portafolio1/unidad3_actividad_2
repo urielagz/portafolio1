@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace unidad_II_actividad_1
+namespace unidad_3_actividad_2
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int cantidadPersonas = LeerCantidadPersonas();
+            int cantidad_de_personas = LeerCantidadPersonas();
 
-            List<string> nombres = new List<string>();
             List<int> edades = new List<int>();
+            List<string> nombres = new List<string>();
 
-            CapturarDatos(cantidadPersonas, nombres, edades);
-            MostrarResultados(cantidadPersonas, nombres, edades);
+            // Llamada al procedimiento para capturar datos
+            CapturarDatos(cantidad_de_personas, nombres, edades);
+
+            // Llamada al procedimiento para mostrar resultados
+            MostrarResultados(cantidad_de_personas, nombres, edades);
 
             Console.WriteLine("Programa finalizado");
         }
@@ -21,22 +24,22 @@ namespace unidad_II_actividad_1
         // FUNCIÓN: Lee y valida la cantidad de personas
         static int LeerCantidadPersonas()
         {
-            int cantidad;
-            Console.Write("Ingresa la cantidad de personas: ");
+            int cantidad_de_personas;
+            Console.Write("Ingresa la cantidad de personas que desea ingresar: ");
 
-            while (!int.TryParse(Console.ReadLine(), out cantidad) || cantidad < 1)
+            while (!int.TryParse(Console.ReadLine(), out cantidad_de_personas) || cantidad_de_personas < 1)
             {
                 Console.WriteLine("ERROR: Ingresa un número válido mayor o igual a 1");
                 Console.Write("Intenta nuevamente: ");
             }
 
-            return cantidad;
+            return cantidad_de_personas;
         }
 
         // PROCEDIMIENTO: Captura nombres y edades
-        static void CapturarDatos(int cantidad, List<string> nombres, List<int> edades)
+        static void CapturarDatos(int cantidad_de_personas, List<string> nombres, List<int> edades)
         {
-            for (int i = 0; i < cantidad; i++)
+            for (int i = 0; i < cantidad_de_personas; i++)
             {
                 Console.WriteLine($"\nPersona número {i + 1}");
 
@@ -45,13 +48,11 @@ namespace unidad_II_actividad_1
 
                 int edad;
                 Console.Write("Edad: ");
-
-                while (!int.TryParse(Console.ReadLine(), out edad) || edad <= 0)
+                while (!int.TryParse(Console.ReadLine(), out edad) || edad < 1)
                 {
-                    Console.WriteLine("ERROR: Ingresa una edad válida (mayor a 0)");
+                    Console.WriteLine("ERROR: Ingresa una edad válida");
                     Console.Write("Intenta nuevamente: ");
                 }
-
                 edades.Add(edad);
             }
         }
@@ -63,12 +64,12 @@ namespace unidad_II_actividad_1
         }
 
         // PROCEDIMIENTO: Muestra los resultados
-        static void MostrarResultados(int cantidad, List<string> nombres, List<int> edades)
+        static void MostrarResultados(int cantidad_de_personas, List<string> nombres, List<int> edades)
         {
             List<string> mayores = new List<string>();
             List<string> menores = new List<string>();
 
-            for (int i = 0; i < cantidad; i++)
+            for (int i = 0; i < cantidad_de_personas; i++)
             {
                 if (EsMayorDeEdad(edades[i]))
                     mayores.Add($"{nombres[i]} - {edades[i]} años");
@@ -91,5 +92,4 @@ namespace unidad_II_actividad_1
             }
         }
     }
-
 }
