@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace unidad_II_actividad_1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int cantidadPersonas = LeerCantidadPersonas();
+
+            List<string> nombres = new List<string>();
+            List<int> edades = new List<int>();
+
+            CapturarDatos(cantidadPersonas, nombres, edades);
+            MostrarResultados(cantidadPersonas, nombres, edades);
+
+            Console.WriteLine("Programa finalizado");
+        }
+
+        // FUNCIÓN: Lee y valida la cantidad de personas
+        static int LeerCantidadPersonas()
+        {
+            int cantidad;
+            Console.Write("Ingresa la cantidad de personas: ");
+
+            while (!int.TryParse(Console.ReadLine(), out cantidad) || cantidad < 1)
+            {
+                Console.WriteLine("ERROR: Ingresa un número válido mayor o igual a 1");
+                Console.Write("Intenta nuevamente: ");
+            }
+
+            return cantidad;
+        }
+
+        // PROCEDIMIENTO: Captura nombres y edades
+        static void CapturarDatos(int cantidad, List<string> nombres, List<int> edades)
+        {
+            for (int i = 0; i < cantidad; i++)
+            {
+                Console.WriteLine($"\nPersona número {i + 1}");
+
+                Console.Write("Nombre: ");
+                nombres.Add(Console.ReadLine());
+
+                int edad;
+                Console.Write("Edad: ");
+
+                while (!int.TryParse(Console.ReadLine(), out edad) || edad <= 0)
+                {
+                    Console.WriteLine("ERROR: Ingresa una edad válida (mayor a 0)");
+                    Console.Write("Intenta nuevamente: ");
+                }
+
+                edades.Add(edad);
+            }
+        }
+
+        // FUNCIÓN: Determina si es mayor de edad
+        static bool EsMayorDeEdad(int edad)
+        {
+            return edad >= 18;
+        }
+
+        // PROCEDIMIENTO: Muestra los resultados
+        static void MostrarResultados(int cantidad, List<string> nombres, List<int> edades)
+        {
+            List<string> mayores = new List<string>();
+            List<string> menores = new List<string>();
+
+            for (int i = 0; i < cantidad; i++)
+            {
+                if (EsMayorDeEdad(edades[i]))
+                    mayores.Add($"{nombres[i]} - {edades[i]} años");
+                else
+                    menores.Add($"{nombres[i]} - {edades[i]} años");
+            }
+
+            if (mayores.Count > 0)
+            {
+                Console.WriteLine("\nMayores de edad:");
+                foreach (string persona in mayores)
+                    Console.WriteLine(persona);
+            }
+
+            if (menores.Count > 0)
+            {
+                Console.WriteLine("\nMenores de edad:");
+                foreach (string persona in menores)
+                    Console.WriteLine(persona);
+            }
+        }
+    }
+}
